@@ -1,4 +1,12 @@
 {
+        "fmt": {
+                "options": {
+                        "indentWidth": 8,
+                        "lineWidth": 500,
+                        "singleQuote": true,
+                        "useTabs": true
+                }
+        },
         "tasks": {
                 "test" : "deno test -A --no-check"
         }

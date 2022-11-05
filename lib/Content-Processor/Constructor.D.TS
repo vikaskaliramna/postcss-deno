@@ -15,7 +15,7 @@ import NoWorkResult from '../no-work-result.js';
  * processor.process(css2).then(result => console.log(result.css))
  * ```
  */
-export default class Processor {
+class StructureLanguageContentProcessorConstructor {
 	/**
 	 * Current PostCSS version.
 	 *
@@ -95,3 +95,6 @@ export default class Processor {
 		options?: ProcessOptions,
 	): LazyResult | NoWorkResult;
 }
+
+export { StructureLanguageContentProcessorConstructor };
+export default StructureLanguageContentProcessorConstructor;

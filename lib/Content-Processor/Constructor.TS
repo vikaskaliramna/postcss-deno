@@ -1,23 +1,28 @@
-import { StructureLanguageContentProcessorConstructor } from './Constructor.D.TS';
+import type { InterfaceLanguageContentProcessorConstructor } from './Constructor.D.TS';
 
 /// <reference types="./Constructor.D.TS" />
 
 import NoWorkResult from '../no-work-result.js';
 import LazyResult from '../lazy-result.js';
-import { AcceptedPlugin, Plugin, ProcessOptions } from '../postcss.d.ts';
+import { AcceptedPlugin, Plugin, ProcessOptions, TransformCallback, Transformer } from '../postcss.d.ts';
 
-class LanguageContentProcessorConstructor implements StructureLanguageContentProcessorConstructor {
-	plugins: Array<Plugin>;
+class LanguageContentProcessorConstructor implements InterfaceLanguageContentProcessorConstructor {
+	plugins: (Plugin | Transformer | TransformCallback)[];
 	version: string;
 
-	constructor(plugins = []) {
+	constructor(plugins: Array<AcceptedPlugin> = []) {
 		this.version = '8.4.18';
 		this.plugins = this.normalize(plugins);
 	}
 
-	use(plugin: AcceptedPlugin) {
+	ApplyExtension(plugin: AcceptedPlugin) {
 		this.plugins = this.plugins.concat(this.normalize([plugin]));
 		return this;
+	}
+
+	/**  @deprecated Prefer using `ApplyExtension()` instead.  */
+	use(plugin: AcceptedPlugin) {
+		return this.ApplyExtension(plugin);
 	}
 
 	process($StyleSheetStringContent: string, $ProcessorConfiguration: ProcessOptions = {}): NoWorkResult | LazyResult {
@@ -33,23 +38,23 @@ class LanguageContentProcessorConstructor implements StructureLanguageContentPro
 		return new LazyResult(this, $StyleSheetStringContent, $ProcessorConfiguration);
 	}
 
-	normalize($PluginList: Array<AcceptedPlugin>) {
+	normalize($PluginList: Array<AcceptedPlugin | any>): Array<(Plugin | Transformer | TransformCallback)> {
 		let normalized: Array<Plugin> = [];
 
 		for (let CurrentPlugin__ of $PluginList) {
-			if ((CurrentPlugin__ as any).postcss === true) {
+			if (CurrentPlugin__.postcss === true) {
 				CurrentPlugin__ = CurrentPlugin__();
-			} else if ((CurrentPlugin__ as any).postcss) {
-				CurrentPlugin__ = (CurrentPlugin__ as any).postcss;
+			} else if (CurrentPlugin__.postcss) {
+				CurrentPlugin__ = CurrentPlugin__.postcss;
 			}
 
-			if (typeof CurrentPlugin__ === 'object' && Array.isArray((CurrentPlugin__ as any).plugins)) {
-				normalized = normalized.concat((CurrentPlugin__ as any).plugins);
-			} else if (typeof CurrentPlugin__ === 'object' && (CurrentPlugin__ as any).postcssPlugin) {
+			if (typeof CurrentPlugin__ === 'object' && Array.isArray(CurrentPlugin__.plugins)) {
+				normalized = normalized.concat(CurrentPlugin__.plugins);
+			} else if (typeof CurrentPlugin__ === 'object' && CurrentPlugin__.postcssPlugin) {
 				normalized.push(CurrentPlugin__);
 			} else if (typeof CurrentPlugin__ === 'function') {
 				normalized.push(CurrentPlugin__);
-			} else if (typeof CurrentPlugin__ === 'object' && ((CurrentPlugin__ as any).parse || (CurrentPlugin__ as any).stringify)) {
+			} else if (typeof CurrentPlugin__ === 'object' && (CurrentPlugin__.parse || CurrentPlugin__.stringify)) {
 				if (Deno.env.get('DENO_ENV') !== 'production') {
 					throw new Error(
 						'PostCSS syntaxes cannot be used as plugins. Instead, please use ' +
@@ -61,7 +66,7 @@ class LanguageContentProcessorConstructor implements StructureLanguageContentPro
 				throw new Error(CurrentPlugin__ + ' is not a PostCSS plugin');
 			}
 		}
-		return normalized;
+		return (normalized);
 	}
 }
 

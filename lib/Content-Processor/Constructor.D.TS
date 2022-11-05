@@ -1,4 +1,3 @@
-import { Buffer } from '../deps.js';
 import { AcceptedPlugin, Plugin, ProcessOptions, TransformCallback, Transformer } from '../postcss.js';
 import LazyResult from '../lazy-result.js';
 import Result from '../result.js';
@@ -15,7 +14,7 @@ import NoWorkResult from '../no-work-result.js';
  * processor.process(css2).then(result => console.log(result.css))
  * ```
  */
-class StructureLanguageContentProcessorConstructor {
+interface InterfaceLanguageContentProcessorConstructor {
 	/**
 	 * Current PostCSS version.
 	 *
@@ -36,11 +35,6 @@ class StructureLanguageContentProcessorConstructor {
 	 * ```
 	 */
 	plugins: (Plugin | Transformer | TransformCallback)[];
-
-	/**
-	 * @param plugins PostCSS plugins
-	 */
-	constructor(plugins?: AcceptedPlugin[]);
 
 	/**
 	 * Adds a plugin to be used as a CSS processor.
@@ -69,6 +63,9 @@ class StructureLanguageContentProcessorConstructor {
 	 * @param plugin PostCSS plugin or `Processor` with plugins.
 	 * @return Current processor to make methods chain.
 	 */
+	ApplyExtension(plugin: AcceptedPlugin): this;
+
+	/**  @deprecated Prefer using `ApplyExtension()` instead.  */
 	use(plugin: AcceptedPlugin): this;
 
 	/**
@@ -96,5 +93,5 @@ class StructureLanguageContentProcessorConstructor {
 	): LazyResult | NoWorkResult;
 }
 
-export { StructureLanguageContentProcessorConstructor };
-export default StructureLanguageContentProcessorConstructor;
+export type { InterfaceLanguageContentProcessorConstructor };
+export default InterfaceLanguageContentProcessorConstructor;

@@ -19,7 +19,7 @@ export const pico = {
 	magenta
 };
 
-const HIGHLIGHT_THEME = {
+const HIGHLIGHT_THEME : Record<string, (str : string) => string> = {
 	'brackets' : pico.cyan,
 	'at-word'  : pico.cyan,
 	'comment'  : pico.gray,
@@ -43,30 +43,33 @@ const HIGHLIGHT_THEME = {
 class LanguageConsoleConstructor {
 
 
-	public static SyntaxHighlight($StyleSheetContent) : string {
+	public static SyntaxHighlight($StyleSheetContent : string) : string {
 
 
-		const processor = tokenizer(new LanguageContentInputConstructor($StyleSheetContent), { ignoreErrors : true });
+		const CustomContentScanner = tokenizer(new LanguageContentInputConstructor($StyleSheetContent), { ignoreErrors : true });
 
 
-		let result = '';
+		let FunctionStringResult = '';
 
-		while (!processor.endOfFile()) {
-			let token = processor.nextToken();
-			let color = HIGHLIGHT_THEME[ this.FunctionCheckType(token, processor) ];
+		while (!CustomContentScanner.endOfFile()) {
+
+			let token = CustomContentScanner.nextToken();
+
+			let color = HIGHLIGHT_THEME[ this.#FunctionCheckType(token, CustomContentScanner) ];
+
 			if (color) {
-				result += token[ 1 ]
+				FunctionStringResult += token[ 1 ]
 					.split(/\r?\n/)
 					.map((i) => color(i))
 					.join('\n');
 			}
 			else {
-				result += token[ 1 ];
+				FunctionStringResult += token[ 1 ];
 			}
 		}
 
 
-		return result;
+		return FunctionStringResult;
 
 	}
 
@@ -74,7 +77,8 @@ class LanguageConsoleConstructor {
 
 
 
-	static #FunctionCheckType([ type, value ], processor) {
+	#FunctionCheckType([ type, value ] : string[], processor : tokenizer) {
+
 		if (type === 'word') {
 			if (value[ 0 ] === '.') {
 				return 'class';

@@ -1,5 +1,5 @@
 import Container from '../Container/Constructor.D.TS';
-import Node from '../Base/Constructor.D.TS';
+import InterfaceLanguageStyleSheetNodeBase from '../Base/Constructor.D.TS';
 
 
 

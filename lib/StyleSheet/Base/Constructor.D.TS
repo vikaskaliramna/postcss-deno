@@ -1,22 +1,22 @@
-import Declaration, { DeclarationProps } from '../../declaration.js';
-import Comment, { CommentProps } from '../../comment.js';
-import { Stringifier, Syntax } from '../../postcss.js';
-import AtRule, { AtRuleProps } from '../../at-rule.js';
-import Rule, { RuleProps } from '../../rule.js';
-import Warning, { WarningOptions } from '../../warning.js';
-import CssSyntaxError from '../../css-syntax-error.js';
-import Result from '../../result.js';
-import Input from '../../input.js';
-import Root from '../../root.js';
-import Document from '../../document.js';
-import { InterfaceLanguageStyleSheetNodeAsperandRule } from '../Container/Constructor.D.TS';
+import Comment, { CommentProps } from '../Comment/Constructor.D.TS';
+import { Stringifier, Syntax } from './postcss.js';
+import type { InterfaceLanguageStyleSheetNodeRule, RuleProps } from '../Rule/Constructor.D.TS';
+import type { AtRuleProps, InterfaceLanguageStyleSheetNodeAsperandRule } from '../Asperand-Rule/Constructor.D.TS';
+import type { DeclarationProps, InterfaceLanguageStyleSheetNodeDeclaration } from '../Declaration/Constructor.D.TS';
+import Warning, { WarningOptions } from './warning.js';
+import CssSyntaxError from './css-syntax-error.js';
+import Result from './result.js';
+import Input from './input.js';
+import Root from './root.js';
+import Document from './document.js';
+import Container from '../Container/Constructor.D.TS';
 
 
 
 
-export type ChildNode = AtRule | Rule | Declaration | Comment;
+export type ChildNode = InterfaceLanguageStyleSheetNodeAsperandRule | InterfaceLanguageStyleSheetNodeRule | InterfaceLanguageStyleSheetNodeDeclaration | Comment;
 
-export type AnyNode = AtRule | Rule | Declaration | Comment | Root | Document;
+export type AnyNode = InterfaceLanguageStyleSheetNodeAsperandRule | InterfaceLanguageStyleSheetNodeRule | InterfaceLanguageStyleSheetNodeDeclaration | Comment | Root | Document;
 
 export type ChildProps =
 	| AtRuleProps
@@ -118,7 +118,7 @@ interface NodeErrorOptions {
  * You should not extend this classes to create AST for selector or value
  * parser.
  */
-export default interface Node {
+export default abstract class Node {
 	/**
 	 * tring representing the node’s type. Possible values are `root`, `atrule`,
 	 * `rule`, `decl`, or `comment`.
@@ -136,7 +136,7 @@ export default interface Node {
 	 * root.nodes[0].parent === root
 	 * ```
 	 */
-	parent : Document | InterfaceLanguageStyleSheetNodeAsperandRule | undefined;
+	parent : Document | Container | undefined;
 
 	/**
 	 * The input source of the node.
@@ -211,10 +211,18 @@ export default interface Node {
 	 */
 	raws : any;
 
+
+
+
+
 	/**
 	 * @param defaults Value for node properties.
 	 */
-	// constructor(defaults?: object);
+	constructor(defaults? : object);
+
+
+
+
 
 	/**
 	 * Returns a `CssSyntaxError` instance containing the original position
@@ -245,6 +253,10 @@ export default interface Node {
 	 */
 	error(message : string, options? : NodeErrorOptions) : CssSyntaxError;
 
+
+
+
+
 	/**
 	 * This method is provided as a convenience wrapper for `Result#warn`.
 	 *
@@ -264,6 +276,10 @@ export default interface Node {
 	 */
 	warn(result : Result, text : string, opts? : WarningOptions) : Warning;
 
+
+
+
+
 	/**
 	 * Removes the node from its parent and cleans the parent properties
 	 * from the node and its children.
@@ -278,6 +294,10 @@ export default interface Node {
 	 */
 	remove() : this;
 
+
+
+
+
 	/**
 	 * Returns a CSS string representing the node.
 	 *
@@ -290,6 +310,10 @@ export default interface Node {
 	 */
 	toString(stringifier? : Stringifier | Syntax) : string;
 
+
+
+
+
 	/**
 	 * Assigns properties to the current node.
 	 *
@@ -301,6 +325,10 @@ export default interface Node {
 	 * @return Current node to methods chain.
 	 */
 	assign(overrides : object) : this;
+
+
+
+
 
 	/**
 	 * Returns an exact clone of the node.
@@ -320,6 +348,10 @@ export default interface Node {
 	 */
 	clone(overrides? : object) : this;
 
+
+
+
+
 	/**
 	 * Shortcut to clone the node and insert the resulting cloned node
 	 * before the current node.
@@ -334,6 +366,10 @@ export default interface Node {
 	 */
 	cloneBefore(overrides? : object) : this;
 
+
+
+
+
 	/**
 	 * Shortcut to clone the node and insert the resulting cloned node
 	 * after the current node.
@@ -342,6 +378,10 @@ export default interface Node {
 	 * @return New node.
 	 */
 	cloneAfter(overrides? : object) : this;
+
+
+
+
 
 	/**
 	 * Inserts node(s) before the current node and removes the current node.
@@ -361,6 +401,10 @@ export default interface Node {
 		...nodes : (ChildNode | ChildProps | ChildNode[] | ChildProps[])[]
 	) : this;
 
+
+
+
+
 	/**
 	 * Returns the next child of the node’s parent.
 	 * Returns `undefined` if the current node is the last child.
@@ -378,6 +422,10 @@ export default interface Node {
 	 */
 	next() : ChildNode | undefined;
 
+
+
+
+
 	/**
 	 * Returns the previous child of the node’s parent.
 	 * Returns `undefined` if the current node is the first child.
@@ -393,6 +441,10 @@ export default interface Node {
 	 */
 	prev() : ChildNode | undefined;
 
+
+
+
+
 	/**
 	 * Insert new node before current node to current node’s parent.
 	 *
@@ -406,6 +458,10 @@ export default interface Node {
 	 * @return This node for methods chain.
 	 */
 	before(newNode : Node | ChildProps | string | Node[]) : this;
+
+
+
+
 
 	/**
 	 * Insert new node after current node to current node’s parent.
@@ -421,6 +477,10 @@ export default interface Node {
 	 */
 	after(newNode : Node | ChildProps | string | Node[]) : this;
 
+
+
+
+
 	/**
 	 * Finds the Root instance of the node’s tree.
 	 *
@@ -431,6 +491,10 @@ export default interface Node {
 	 * @return Root parent.
 	 */
 	root() : Root;
+
+
+
+
 
 	/**
 	 * Returns a `Node#raws` value. If the node is missing
@@ -452,6 +516,10 @@ export default interface Node {
 	 */
 	raw(prop : string, defaultType? : string) : string;
 
+
+
+
+
 	/**
 	 * Clear the code style properties for the node and its children.
 	 *
@@ -465,12 +533,20 @@ export default interface Node {
 	 */
 	cleanRaws(keepBetween? : boolean) : void;
 
+
+
+
+
 	/**
 	 * Fix circular links on `JSON.stringify()`.
 	 *
 	 * @return Cleaned object.
 	 */
 	toJSON() : object;
+
+
+
+
 
 	/**
 	 * Convert string index to line/column.
@@ -480,6 +556,10 @@ export default interface Node {
 	 */
 	positionInside(index : number) : Position;
 
+
+
+
+
 	/**
 	 * Get the position for a word or an index inside the node.
 	 *
@@ -487,6 +567,10 @@ export default interface Node {
 	 * @return Position.
 	 */
 	positionBy(opts? : Pick<WarningOptions, 'word' | 'index'>) : Position;
+
+
+
+
 
 	/**
 	 * Get the range for a word or start and end index inside the node.

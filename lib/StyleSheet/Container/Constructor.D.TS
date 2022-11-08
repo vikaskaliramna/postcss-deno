@@ -36,7 +36,7 @@ export interface ContainerProps extends NodeProps {
  * Note that all containers can store any content. If you write a rule inside
  * a rule, PostCSS will parse it.
  */
-declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node = ChildNode> extends Node {
+declare interface InterfaceLanguageStyleSheetNodeContainer<Child extends Node = ChildNode> extends Node {
 	/**
 	 * An array containing the container’s children.
 	 *
@@ -451,5 +451,5 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 
 
 
-export type { InterfaceLanguageStyleSheetNodeAsperandRule };
-export default InterfaceLanguageStyleSheetNodeAsperandRule;
+export type { InterfaceLanguageStyleSheetNodeContainer };
+export default InterfaceLanguageStyleSheetNodeContainer;

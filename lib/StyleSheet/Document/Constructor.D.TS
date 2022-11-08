@@ -38,7 +38,7 @@ type ChildProps = RootProps;
  * document.nodes.length //=> 2
  * ```
  */
-export default class Document extends Container<Root> {
+export default interface Document extends Container<Root> {
 	type : 'document';
 	parent : undefined;
 
@@ -46,7 +46,7 @@ export default class Document extends Container<Root> {
 
 
 
-	constructor(defaults? : DocumentProps);
+	// constructor(defaults? : DocumentProps);
 
 
 

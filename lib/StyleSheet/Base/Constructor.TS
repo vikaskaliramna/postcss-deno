@@ -7,6 +7,7 @@ import CssSyntaxError from '../../css-syntax-error.js';
 import Stringifier from '../../stringifier.js';
 import stringify from '../../stringify.js';
 import { cloneNode } from './Function.TS';
+import InterfaceLanguageStyleSheetNodeComment from '../Comment/Constructor.D.TS';
 
 class LanguageStyleSheetNodeBaseConstructor implements InterfaceLanguageStyleSheetNodeBase {
 	declare type: string;
@@ -45,12 +46,32 @@ class LanguageStyleSheetNodeBaseConstructor implements InterfaceLanguageStyleShe
 		}
 	}
 
-	append(arg0: any) {
-		throw new Error('Method not implemented.');
+	AppendStyleSheetNode($StyleSheetNode: any) {
+		throw new Error('Append method not implemented.');
+	}
+
+	append($StyleSheetNode: any) {
+		return this.AppendStyleSheetNode($StyleSheetNode);
+	}
+
+	RemoveStyleSheetNode() {
+		if (this.parent) {
+			this.parent.removeChild(this);
+		}
+		this.parent = undefined;
+		return this;
+	}
+
+	remove() {
+		return this.RemoveStyleSheetNode();
+	}
+
+	get StyleSheetNodeProxy() {
+		return this;
 	}
 
 	get proxyOf() {
-		return this;
+		return this.StyleSheetNodeProxy;
 	}
 
 	error($StringContent: string, $Configuration: NodeErrorOptions | {} = {}): CssSyntaxError {
@@ -68,17 +89,11 @@ class LanguageStyleSheetNodeBaseConstructor implements InterfaceLanguageStyleShe
 	}
 
 	warn(result: Result, $StringContent: string, $Configuration: WarningOptions) {
-		let data = { node: this };
-		for (let i in $Configuration) data[i] = $Configuration[i];
-		return result.warn($StringContent, data);
-	}
-
-	remove() {
-		if (this.parent) {
-			this.parent.removeChild(this);
+		let data: Record<string, any> = { node: this };
+		for (let i in $Configuration) {
+			data[i] = $Configuration[<keyof typeof $Configuration> i];
 		}
-		this.parent = undefined;
-		return this;
+		return result.warn($StringContent, data);
 	}
 
 	toString(stringifier = stringify) {
@@ -94,28 +109,34 @@ class LanguageStyleSheetNodeBaseConstructor implements InterfaceLanguageStyleShe
 
 	assign(overrides = {}) {
 		for (let name in overrides) {
-			this[name] = overrides[name];
+			this[<keyof typeof this> name] = overrides[<keyof typeof overrides> name];
 		}
 		return this;
 	}
 
 	clone(overrides = {}) {
 		let cloned = cloneNode(this);
+
 		for (let name in overrides) {
-			cloned[name] = overrides[name];
+			cloned[name] = overrides[<keyof typeof overrides> name];
 		}
+
 		return cloned;
 	}
 
-	cloneBefore(overrides = {}) {
-		let cloned = this.clone(overrides);
-		this.parent.insertBefore(this, cloned);
+	cloneBefore($StyleSheetNode = {}) {
+		let cloned = this.clone($StyleSheetNode);
+
+		if (this.parent?.type !== 'document' /**  || this.parent?.type !== 'Language-StyleSheet-Node-Document'  */) {
+			(this.parent as any).insertBefore(this, cloned);
+		}
+
 		return cloned;
 	}
 
 	cloneAfter(overrides = {}) {
 		let cloned = this.clone(overrides);
-		this.parent.insertAfter(this, cloned);
+		this.parent?.insertAfter(this, cloned);
 		return cloned;
 	}
 
@@ -127,10 +148,10 @@ class LanguageStyleSheetNodeBaseConstructor implements InterfaceLanguageStyleShe
 				if (node === this) {
 					foundSelf = true;
 				} else if (foundSelf) {
-					this.parent.insertAfter(bookmark, node);
+					this.parent?.insertAfter(bookmark, node);
 					bookmark = node;
 				} else {
-					this.parent.insertBefore(bookmark, node);
+					this.parent?.insertBefore(bookmark, node);
 				}
 			}
 

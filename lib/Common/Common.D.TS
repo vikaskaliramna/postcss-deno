@@ -2,7 +2,7 @@ import { RawSourceMap, SourceMapGenerator } from '../source_map.ts';
 import Node, { AnyNode, ChildNode, ChildProps, NodeErrorOptions, NodeProps, Position, Source } from '../StyleSheet/Base/Constructor.D.TS';
 import Declaration, { DeclarationProps } from '../StyleSheet/Declaration/Constructor.D.TS';
 import Container, { ContainerProps } from '../StyleSheet/Container/Constructor.D.TS';
-import Document, { DocumentProps } from './document.js';
+import Document, { DocumentProps } from '../StyleSheet/Document/Constructor.D.TS';
 import Warning, { WarningOptions } from './warning.js';
 import Comment, { CommentProps } from './comment.js';
 import AtRule, { AtRuleProps } from './at-rule.js';

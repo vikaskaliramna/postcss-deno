@@ -1,8 +1,11 @@
 import { AcceptedPlugin, Plugin, ProcessOptions, TransformCallback, Transformer } from '../postcss.js';
 import LazyResult from '../lazy-result.js';
 import Result from '../result.js';
-import Root from '../root.js';
+import { InterfaceLanguageStyleSheetNodeRoot } from '../StyleSheet/Root/Constructor.D.TS';
 import NoWorkResult from '../no-work-result.js';
+
+
+
 
 /**
  * Contains plugins to process CSS. Create one `Processor` instance,
@@ -24,7 +27,7 @@ interface InterfaceLanguageContentProcessorConstructor {
 	 * }
 	 * ```
 	 */
-	version: string;
+	version : string;
 
 	/**
 	 * Plugins added to this processor.
@@ -34,7 +37,7 @@ interface InterfaceLanguageContentProcessorConstructor {
 	 * processor.plugins.length //=> 2
 	 * ```
 	 */
-	plugins: (Plugin | Transformer | TransformCallback)[];
+	plugins : (Plugin | Transformer | TransformCallback)[];
 
 	/**
 	 * Adds a plugin to be used as a CSS processor.
@@ -63,10 +66,10 @@ interface InterfaceLanguageContentProcessorConstructor {
 	 * @param plugin PostCSS plugin or `Processor` with plugins.
 	 * @return Current processor to make methods chain.
 	 */
-	ApplyExtension(plugin: AcceptedPlugin): this;
+	ApplyExtension(plugin : AcceptedPlugin) : this;
 
 	/**  @deprecated Prefer using `ApplyExtension()` instead.  */
-	use(plugin: AcceptedPlugin): this;
+	use(plugin : AcceptedPlugin) : this;
 
 	/**
 	 * Parses source CSS and returns a `LazyResult` Promise proxy.
@@ -88,10 +91,13 @@ interface InterfaceLanguageContentProcessorConstructor {
 	 * @return Promise proxy.
 	 */
 	process(
-		css: string | { toString(): string } | Result | LazyResult | Root,
-		options?: ProcessOptions,
-	): LazyResult | NoWorkResult;
+		css : string | { toString() : string } | Result | LazyResult | InterfaceLanguageStyleSheetNodeRoot,
+		options? : ProcessOptions
+	) : LazyResult | NoWorkResult;
 }
+
+
+
 
 export type { InterfaceLanguageContentProcessorConstructor };
 export default InterfaceLanguageContentProcessorConstructor;

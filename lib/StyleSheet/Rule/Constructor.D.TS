@@ -130,9 +130,7 @@ declare interface InterfaceLanguageStyleSheetNodeRule extends InterfaceLanguageS
 
 
 
-
 	// constructor(defaults? : RuleProps);
-
 
 
 
@@ -142,15 +140,12 @@ declare interface InterfaceLanguageStyleSheetNodeRule extends InterfaceLanguageS
 
 
 
-
 	clone(overrides? : Partial<RuleProps>) : this;
 
 
 
 
-
 	cloneBefore(overrides? : Partial<RuleProps>) : this;
-
 
 
 

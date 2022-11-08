@@ -1,5 +1,4 @@
 import Container, { ContainerProps } from '../Container/Constructor.D.TS';
-import Document from '../Document/Constructor.D.TS';
 import { ProcessOptions } from '../../Common/Common.D.TS';
 import Result from '../../result.d.ts';
 
@@ -69,9 +68,7 @@ declare interface InterfaceLanguageStyleSheetNodeRoot extends Container {
 
 
 
-
 	// constructor(defaults? : RootProps);
-
 
 
 
@@ -90,7 +87,6 @@ declare interface InterfaceLanguageStyleSheetNodeRoot extends Container {
 	 * @return Result with current root’s CSS.
 	 */
 	toResult(options? : ProcessOptions) : Result;
-
 
 
 

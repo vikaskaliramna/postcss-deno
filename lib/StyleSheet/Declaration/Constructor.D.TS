@@ -1,48 +1,61 @@
 import type { InterfaceLanguageStyleSheetNodeContainer } from '../Container/Constructor.D.TS';
 import type { InterfaceLanguageStyleSheetNodeBase } from '../Base/Constructor.D.TS';
 
+
+
+
 export declare interface InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw extends Record<string, unknown> {
 	/**
 	 * The space symbols before the node. It also stores `*`
 	 * and `_` symbols before the declaration (IE hack).
 	 */
-	before?: string;
+	before? : string;
 
 	/**
 	 * The symbols between the property and value for declarations.
 	 */
-	between?: string;
+	between? : string;
 
 	/**
 	 * The content of the important statement, if it is not just `!important`.
 	 */
-	important?: string;
+	important? : string;
 
 	/**
 	 * Declaration value with comments.
 	 */
-	value?: {
-		value: string;
-		raw: string;
+	value? : {
+		value : string;
+		raw : string;
 	};
 }
+
+
+
+
 /**
  *
  *  @deprecated `DeclarationRaws` has been deprecated in favour of `InterfaceLanguageStyleSheetNodeDeclarationCollectionRw`
  *
  */
-export interface DeclarationRaws extends InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw {}
+export interface DeclarationRaws extends InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw {
+}
+
+
+
 
 export interface InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty {
 	/** Name of the declaration. */
-	prop: string;
+	prop : string;
 	/** Value of the declaration. */
-	value: string;
+	value : string;
 	/** Whether the declaration has an `!important` annotation. */
-	important?: boolean;
+	important? : boolean;
 	/** Information used to generate byte-to-byte equal node string as it was in the origin input. */
-	raws?: InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw;
+	raws? : InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw;
 }
+
+
 
 
 /**
@@ -50,7 +63,12 @@ export interface InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty {
  *  @deprecated `DeclarationRaDeclarationPropsws` has been deprecated in favour of `InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty`
  *
  */
-export interface DeclarationProps extends InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty {}
+export interface DeclarationProps extends InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty {
+}
+
+
+
+
 /**
  * Represents a CSS declaration.
  *
@@ -69,9 +87,9 @@ export interface DeclarationProps extends InterfaceLanguageStyleSheetNodeDeclara
  * ```
  */
 declare interface InterfaceLanguageStyleSheetNodeDeclaration extends InterfaceLanguageStyleSheetNodeBase {
-	type: 'decl';
-	parent: InterfaceLanguageStyleSheetNodeContainer  | undefined;
-	raws: InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw;
+	type : 'decl';
+	parent : InterfaceLanguageStyleSheetNodeContainer | undefined;
+	raws : InterfaceLanguageStyleSheetNodeDeclarationCollectionRaw;
 
 	/**
 	 * The declaration's property name.
@@ -82,7 +100,7 @@ declare interface InterfaceLanguageStyleSheetNodeDeclaration extends InterfaceLa
 	 * decl.prop //=> 'color'
 	 * ```
 	 */
-	prop: string;
+	prop : string;
 
 	/**
 	 * The declaration’s value.
@@ -98,7 +116,7 @@ declare interface InterfaceLanguageStyleSheetNodeDeclaration extends InterfaceLa
 	 * decl.value //=> 'black'
 	 * ```
 	 */
-	value: string;
+	value : string;
 
 	/**
 	 * `true` if the declaration has an `!important` annotation.
@@ -109,7 +127,7 @@ declare interface InterfaceLanguageStyleSheetNodeDeclaration extends InterfaceLa
 	 * root.first.last.important  //=> undefined
 	 * ```
 	 */
-	important: boolean;
+	important : boolean;
 
 	/**
 	 * `true` if declaration is declaration of CSS Custom Property
@@ -127,18 +145,21 @@ declare interface InterfaceLanguageStyleSheetNodeDeclaration extends InterfaceLa
 	 * one.variable //=> true
 	 * ```
 	 */
-	variable: boolean;
+	variable : boolean;
 
 	// constructor(defaults?: InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty);
 
-	assign(overrides: object | InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty): this;
+	assign(overrides : object | InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty) : this;
 
-	clone(overrides?: Partial<InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty>): this;
+	clone(overrides? : Partial<InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty>) : this;
 
-	cloneBefore(overrides?: Partial<InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty>): this;
+	cloneBefore(overrides? : Partial<InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty>) : this;
 
-	cloneAfter(overrides?: Partial<InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty>): this;
+	cloneAfter(overrides? : Partial<InterfaceLanguageStyleSheetNodeDeclarationCollectionProperty>) : this;
 }
+
+
+
 
 export type { InterfaceLanguageStyleSheetNodeDeclaration };
 export default InterfaceLanguageStyleSheetNodeDeclaration;

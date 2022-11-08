@@ -81,7 +81,7 @@ export interface AtRuleProps extends ContainerProps {
  */
 declare interface InterfaceLanguageStyleSheetNodeAsperandRule extends Container {
 	type : 'atrule';
-	parent : Container | undefined;
+	// parent : Container | undefined;
 	raws : AtRuleRaws;
 
 	/**

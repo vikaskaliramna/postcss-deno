@@ -1,0 +1,1 @@
+export { LanguageConsoleConstructor } from './lib/Console/Constructor.TS';

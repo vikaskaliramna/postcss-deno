@@ -11,9 +11,6 @@ import Root from '../Root/Constructor.D.TS';
 import Document from '../Document/Constructor.D.TS';
 import Container from '../Container/Constructor.D.TS';
 
-
-
-
 export type ChildNode = InterfaceLanguageStyleSheetNodeAsperandRule | InterfaceLanguageStyleSheetNodeRule | InterfaceLanguageStyleSheetNodeDeclaration | Comment;
 
 export type AnyNode = InterfaceLanguageStyleSheetNodeAsperandRule | InterfaceLanguageStyleSheetNodeRule | InterfaceLanguageStyleSheetNodeDeclaration | Comment | Root | Document;
@@ -24,93 +21,75 @@ export type ChildProps =
 	| DeclarationProps
 	| CommentProps;
 
-
-
-
 export interface Position {
 	/**
 	 * Source offset in file. It starts from 0.
 	 */
-	offset : number;
+	offset: number;
 
 	/**
 	 * Source line in file. In contrast to `offset` it starts from 1.
 	 */
-	column : number;
+	column: number;
 
 	/**
 	 * Source column in file.
 	 */
-	line : number;
+	line: number;
 }
-
-
-
 
 export interface Range {
 	/**
 	 * Start position, inclusive.
 	 */
-	start : Position;
+	start: Position;
 
 	/**
 	 * End position, exclusive.
 	 */
-	end : Position;
+	end: Position;
 }
-
-
-
 
 export interface Source {
 	/**
 	 * The file source of the node.
 	 */
-	input : Input;
+	input: Input;
 	/**
 	 * The inclusive starting position of the node’s source.
 	 */
-	start? : Position;
+	start?: Position;
 	/**
 	 * The inclusive ending position of the node's source.
 	 */
-	end? : Position;
+	end?: Position;
 }
-
-
-
 
 export interface NodeProps {
-	source? : Source;
+	source?: Source;
 }
 
-
-
-
-interface NodeErrorOptions {
+export interface NodeErrorOptions {
 	/**
 	 * Plugin name that created this error. PostCSS will set it automatically.
 	 */
-	plugin? : string;
+	plugin?: string;
 	/**
 	 * A word inside a node's string, that should be highlighted as source
 	 * of error.
 	 */
-	word? : string;
+	word?: string;
 	/**
 	 * An index inside a node's string that should be highlighted as source
 	 * of error.
 	 */
-	index? : number;
+	index?: number;
 	/**
 	 * An ending index inside a node's string that should be highlighted as
 	 * source of error.
 	 */
-	endIndex? : number;
+	endIndex?: number;
 }
-
-
-
 
 /**
  * All node classes inherit the following common methods.
@@ -127,7 +106,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * new Declaration({ prop: 'color', value: 'black' }).type //=> 'decl'
 	 * ```
 	 */
-	type : string;
+	type: string;
 
 	/**
 	 * The node’s parent node.
@@ -136,7 +115,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * root.nodes[0].parent === root
 	 * ```
 	 */
-	parent : Document | Container | undefined;
+	parent: Document | Container | undefined;
 
 	/**
 	 * The input source of the node.
@@ -174,7 +153,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * }
 	 * ```
 	 */
-	source? : Source;
+	source?: Source;
 
 	/**
 	 * Information to generate byte-to-byte equal node string as it was
@@ -209,7 +188,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * root.first.first.raws //=> { before: '\n  ', between: ':' }
 	 * ```
 	 */
-	raws : any;
+	raws: any;
 
 	/**
 	 * @param defaults Value for node properties.
@@ -217,33 +196,40 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	// constructor(defaults? : object);
 
 	/**
-	 * Returns a `CssSyntaxError` instance containing the original position
-	 * of the node in the source, showing line and column numbers and also
-	 * a small excerpt to facilitate debugging.
 	 *
-	 * If present, an input source map will be used to get the original position
-	 * of the source, even from a previous compilation step
-	 * (e.g., from Sass compilation).
 	 *
-	 * This method produces very useful error messages.
+	 *  Returns a `CssSyntaxError` instance containing the original position
+	 *  of the node in the source, showing line and column numbers and also
+	 *  a small excerpt to facilitate debugging.
 	 *
-	 * ```js
-	 * if (!variables[name]) {
-	 *   throw decl.error(`Unknown variable ${name}`, { word: name })
-	 *   // CssSyntaxError: postcss-vars:a.sass:4:3: Unknown variable $black
-	 *   //   color: $black
-	 *   // a
-	 *   //          ^
-	 *   //   background: white
-	 * }
-	 * ```
+	 *  If present, an input source map will be used to get the original position
+	 *  of the source, even from a previous compilation step
+	 *  (e.g., from Sass compilation).
 	 *
-	 * @param message Error description.
-	 * @param opts    Options.
+	 *  This method produces very useful error messages.
 	 *
-	 * @return Error object to throw it.
+	 *
+	 *  ```js
+	 *  if (!variables[name]) {
+	 *    throw decl.error(`Unknown variable ${name}`, { word: name })
+	 *    // CssSyntaxError: postcss-vars:a.sass:4:3: Unknown variable $black
+	 *    //   color: $black
+	 *    // a
+	 *    //          ^
+	 *    //   background: white
+	 *  }
+	 *  ```
+	 *
+	 *
+	 *  @param $StringContent Error description.
+	 *  @param $Configuration    Options.
+	 *
+	 *
+	 *  @return Error object to throw it.
+	 *
+	 *
 	 */
-	error(message : string, options? : NodeErrorOptions) : CssSyntaxError;
+	error($StringContent: string, $Configuration: NodeErrorOptions | undefined): CssSyntaxError;
 
 	/**
 	 * This method is provided as a convenience wrapper for `Result#warn`.
@@ -257,12 +243,12 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * ```
 	 *
 	 * @param result The `Result` instance that will receive the warning.
-	 * @param text   Warning message.
-	 * @param opts   Warning Options.
+	 * @param $StringContent   Warning message.
+	 * @param $Configuration   Warning Options.
 	 *
 	 * @return Created warning object.
 	 */
-	warn(result : Result, text : string, opts? : WarningOptions) : Warning;
+	warn(result: Result, $StringContent: string, $Configuration: WarningOptions | undefined): Warning;
 
 	/**
 	 * Removes the node from its parent and cleans the parent properties
@@ -276,7 +262,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *
 	 * @return Node to make calls chain.
 	 */
-	remove() : this;
+	remove(): this;
 
 	/**
 	 * Returns a CSS string representing the node.
@@ -288,7 +274,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param stringifier A syntax to use in string generation.
 	 * @return CSS string of this node.
 	 */
-	toString(stringifier? : Stringifier | Syntax) : string;
+	toString(stringifier?: Stringifier | Syntax): string;
 
 	/**
 	 * Assigns properties to the current node.
@@ -300,7 +286,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param overrides New properties to override the node.
 	 * @return Current node to methods chain.
 	 */
-	assign(overrides : object) : this;
+	assign(overrides: object): this;
 
 	/**
 	 * Returns an exact clone of the node.
@@ -318,7 +304,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param overrides New properties to override in the clone.
 	 * @return Clone of the node.
 	 */
-	clone(overrides? : object) : this;
+	clone(overrides?: object): this;
 
 	/**
 	 * Shortcut to clone the node and insert the resulting cloned node
@@ -332,7 +318,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *
 	 * @return New node
 	 */
-	cloneBefore(overrides? : object) : this;
+	cloneBefore(overrides?: object): this;
 
 	/**
 	 * Shortcut to clone the node and insert the resulting cloned node
@@ -341,7 +327,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param overrides New properties to override in the clone.
 	 * @return New node.
 	 */
-	cloneAfter(overrides? : object) : this;
+	cloneAfter(overrides?: object): this;
 
 	/**
 	 * Inserts node(s) before the current node and removes the current node.
@@ -358,8 +344,8 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @return Current node to methods chain.
 	 */
 	replaceWith(
-		...nodes : (ChildNode | ChildProps | ChildNode[] | ChildProps[])[]
-	) : this;
+		...nodes: (ChildNode | ChildProps | ChildNode[] | ChildProps[])[]
+	): this;
 
 	/**
 	 * Returns the next child of the node’s parent.
@@ -376,7 +362,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *
 	 * @return Next node.
 	 */
-	next() : ChildNode | undefined;
+	next(): ChildNode | undefined;
 
 	/**
 	 * Returns the previous child of the node’s parent.
@@ -391,7 +377,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *
 	 * @return Previous node.
 	 */
-	prev() : ChildNode | undefined;
+	prev(): ChildNode | undefined;
 
 	/**
 	 * Insert new node before current node to current node’s parent.
@@ -405,7 +391,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param newNode New node.
 	 * @return This node for methods chain.
 	 */
-	before(newNode : InterfaceLanguageStyleSheetNodeBase | ChildProps | string | InterfaceLanguageStyleSheetNodeBase[]) : this;
+	before(newNode: InterfaceLanguageStyleSheetNodeBase | ChildProps | string | InterfaceLanguageStyleSheetNodeBase[]): this;
 
 	/**
 	 * Insert new node after current node to current node’s parent.
@@ -419,7 +405,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param newNode New node.
 	 * @return This node for methods chain.
 	 */
-	after(newNode : InterfaceLanguageStyleSheetNodeBase | ChildProps | string | InterfaceLanguageStyleSheetNodeBase[]) : this;
+	after(newNode: InterfaceLanguageStyleSheetNodeBase | ChildProps | string | InterfaceLanguageStyleSheetNodeBase[]): this;
 
 	/**
 	 * Finds the Root instance of the node’s tree.
@@ -430,7 +416,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *
 	 * @return Root parent.
 	 */
-	root() : Root;
+	root(): Root;
 
 	/**
 	 * Returns a `Node#raws` value. If the node is missing
@@ -450,7 +436,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *                    if the value is the same as prop.
 	 * @return {string} Code style value.
 	 */
-	raw(prop : string, defaultType? : string) : string;
+	raw(prop: string, defaultType?: string): string;
 
 	/**
 	 * Clear the code style properties for the node and its children.
@@ -463,14 +449,14 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 *
 	 * @param keepBetween Keep the `raws.between` symbols.
 	 */
-	cleanRaws(keepBetween? : boolean) : void;
+	cleanRaws(keepBetween?: boolean): void;
 
 	/**
 	 * Fix circular links on `JSON.stringify()`.
 	 *
 	 * @return Cleaned object.
 	 */
-	toJSON() : object;
+	toJSON(): object;
 
 	/**
 	 * Convert string index to line/column.
@@ -478,7 +464,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param index The symbol number in the node’s string.
 	 * @return Symbol position in file.
 	 */
-	positionInside(index : number) : Position;
+	positionInside(index: number): Position;
 
 	/**
 	 * Get the position for a word or an index inside the node.
@@ -486,7 +472,7 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param opts Options.
 	 * @return Position.
 	 */
-	positionBy(opts? : Pick<WarningOptions, 'word' | 'index'>) : Position;
+	positionBy(opts?: Pick<WarningOptions, 'word' | 'index'>): Position;
 
 	/**
 	 * Get the range for a word or start and end index inside the node.
@@ -495,11 +481,8 @@ declare interface InterfaceLanguageStyleSheetNodeBase {
 	 * @param opts Options.
 	 * @return Range.
 	 */
-	rangeBy(opts? : Pick<WarningOptions, 'word' | 'index' | 'endIndex'>) : Range;
+	rangeBy(opts?: Pick<WarningOptions, 'word' | 'index' | 'endIndex'>): Range;
 }
-
-
-
 
 export type { InterfaceLanguageStyleSheetNodeBase };
 export default InterfaceLanguageStyleSheetNodeBase;

@@ -261,6 +261,7 @@ export interface Builder {
 
 
 export interface Stringifier {
+stringify: any;
 	(node : AnyNode, builder : Builder) : void;
 }
 

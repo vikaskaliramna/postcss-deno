@@ -1,6 +1,7 @@
 import { AtRuleProps, InterfaceLanguageStyleSheetNodeAsperandRule } from './Constructor.D.TS';
 
 import Container from '../../container.js';
+import { ChildNode } from '../../Common/Common.D.TS';
 
 class AtRule extends Container implements InterfaceLanguageStyleSheetNodeAsperandRule {
 	type: 'atrule';
@@ -12,6 +13,7 @@ class AtRule extends Container implements InterfaceLanguageStyleSheetNodeAsperan
 		super(defaults);
 		this.type = 'atrule';
 	}
+	nodes: ChildNode[] = [];
 
 	append(...children: any) {
 		if (!this.proxyOf.nodes) {

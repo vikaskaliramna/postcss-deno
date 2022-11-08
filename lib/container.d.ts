@@ -36,8 +36,7 @@ export interface ContainerProps extends NodeProps {
  * Note that all containers can store any content. If you write a rule inside
  * a rule, PostCSS will parse it.
  */
-export default abstract class Container<Child extends Node = ChildNode,
-	> extends Node {
+export default abstract class Container<Child extends Node = ChildNode> extends Node {
 	/**
 	 * An array containing the container’s children.
 	 *

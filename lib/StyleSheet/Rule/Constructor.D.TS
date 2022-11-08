@@ -94,7 +94,7 @@ export interface RuleProps extends InterfaceLanguageStyleSheetNodeRuleCollection
  * rule.toString() //=> 'a{}'
  * ```
  */
-class InterfaceLanguageStyleSheetNodeRule extends InterfaceLanguageStyleSheetNodeContainer {
+declare interface InterfaceLanguageStyleSheetNodeRule extends InterfaceLanguageStyleSheetNodeContainer {
 	type : 'rule';
 	parent : InterfaceLanguageStyleSheetNodeContainer | undefined;
 	raws : RuleRaws;
@@ -131,7 +131,7 @@ class InterfaceLanguageStyleSheetNodeRule extends InterfaceLanguageStyleSheetNod
 
 
 
-	constructor(defaults? : RuleProps);
+	// constructor(defaults? : RuleProps);
 
 
 
@@ -161,5 +161,5 @@ class InterfaceLanguageStyleSheetNodeRule extends InterfaceLanguageStyleSheetNod
 
 
 
-export { InterfaceLanguageStyleSheetNodeRule };
+export type { InterfaceLanguageStyleSheetNodeRule };
 export default InterfaceLanguageStyleSheetNodeRule;

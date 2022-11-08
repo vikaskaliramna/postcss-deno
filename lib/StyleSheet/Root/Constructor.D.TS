@@ -57,16 +57,20 @@ export interface RootProps extends ContainerProps {
  * root.nodes.length //=> 2
  * ```
  */
-export default class Root extends Container {
+declare interface InterfaceLanguageStyleSheetNodeRoot extends Container {
 	type : 'root';
-	parent : Document | undefined;
+
+	// fix !IMPORTANT
+	// parent : Document | undefined;
+
+
 	raws : RootRaws;
 
 
 
 
 
-	constructor(defaults? : RootProps);
+	// constructor(defaults? : RootProps);
 
 
 
@@ -93,3 +97,9 @@ export default class Root extends Container {
 
 	assign(overrides : object | RootProps) : this;
 }
+
+
+
+
+export type { InterfaceLanguageStyleSheetNodeRoot };
+export default InterfaceLanguageStyleSheetNodeRoot;

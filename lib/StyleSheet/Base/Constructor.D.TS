@@ -11,6 +11,9 @@ import Root from '../../root.js';
 import Document from '../../document.js';
 import { InterfaceLanguageStyleSheetNodeAsperandRule } from '../Container/Constructor.D.TS';
 
+
+
+
 export type ChildNode = AtRule | Rule | Declaration | Comment;
 
 export type AnyNode = AtRule | Rule | Declaration | Comment | Root | Document;
@@ -21,75 +24,93 @@ export type ChildProps =
 	| DeclarationProps
 	| CommentProps;
 
+
+
+
 export interface Position {
 	/**
 	 * Source offset in file. It starts from 0.
 	 */
-	offset: number;
+	offset : number;
 
 	/**
 	 * Source line in file. In contrast to `offset` it starts from 1.
 	 */
-	column: number;
+	column : number;
 
 	/**
 	 * Source column in file.
 	 */
-	line: number;
+	line : number;
 }
+
+
+
 
 export interface Range {
 	/**
 	 * Start position, inclusive.
 	 */
-	start: Position;
+	start : Position;
 
 	/**
 	 * End position, exclusive.
 	 */
-	end: Position;
+	end : Position;
 }
+
+
+
 
 export interface Source {
 	/**
 	 * The file source of the node.
 	 */
-	input: Input;
+	input : Input;
 	/**
 	 * The inclusive starting position of the node’s source.
 	 */
-	start?: Position;
+	start? : Position;
 	/**
 	 * The inclusive ending position of the node's source.
 	 */
-	end?: Position;
+	end? : Position;
 }
 
+
+
+
 export interface NodeProps {
-	source?: Source;
+	source? : Source;
 }
+
+
+
 
 interface NodeErrorOptions {
 	/**
 	 * Plugin name that created this error. PostCSS will set it automatically.
 	 */
-	plugin?: string;
+	plugin? : string;
 	/**
 	 * A word inside a node's string, that should be highlighted as source
 	 * of error.
 	 */
-	word?: string;
+	word? : string;
 	/**
 	 * An index inside a node's string that should be highlighted as source
 	 * of error.
 	 */
-	index?: number;
+	index? : number;
 	/**
 	 * An ending index inside a node's string that should be highlighted as
 	 * source of error.
 	 */
-	endIndex?: number;
+	endIndex? : number;
 }
+
+
+
 
 /**
  * All node classes inherit the following common methods.
@@ -106,7 +127,7 @@ export default interface Node {
 	 * new Declaration({ prop: 'color', value: 'black' }).type //=> 'decl'
 	 * ```
 	 */
-	type: string;
+	type : string;
 
 	/**
 	 * The node’s parent node.
@@ -115,7 +136,7 @@ export default interface Node {
 	 * root.nodes[0].parent === root
 	 * ```
 	 */
-	parent: Document | InterfaceLanguageStyleSheetNodeAsperandRule | undefined;
+	parent : Document | InterfaceLanguageStyleSheetNodeAsperandRule | undefined;
 
 	/**
 	 * The input source of the node.
@@ -153,7 +174,7 @@ export default interface Node {
 	 * }
 	 * ```
 	 */
-	source?: Source;
+	source? : Source;
 
 	/**
 	 * Information to generate byte-to-byte equal node string as it was
@@ -188,7 +209,7 @@ export default interface Node {
 	 * root.first.first.raws //=> { before: '\n  ', between: ':' }
 	 * ```
 	 */
-	raws: any;
+	raws : any;
 
 	/**
 	 * @param defaults Value for node properties.
@@ -222,7 +243,7 @@ export default interface Node {
 	 *
 	 * @return Error object to throw it.
 	 */
-	error(message: string, options?: NodeErrorOptions): CssSyntaxError;
+	error(message : string, options? : NodeErrorOptions) : CssSyntaxError;
 
 	/**
 	 * This method is provided as a convenience wrapper for `Result#warn`.
@@ -241,7 +262,7 @@ export default interface Node {
 	 *
 	 * @return Created warning object.
 	 */
-	warn(result: Result, text: string, opts?: WarningOptions): Warning;
+	warn(result : Result, text : string, opts? : WarningOptions) : Warning;
 
 	/**
 	 * Removes the node from its parent and cleans the parent properties
@@ -255,7 +276,7 @@ export default interface Node {
 	 *
 	 * @return Node to make calls chain.
 	 */
-	remove(): this;
+	remove() : this;
 
 	/**
 	 * Returns a CSS string representing the node.
@@ -267,7 +288,7 @@ export default interface Node {
 	 * @param stringifier A syntax to use in string generation.
 	 * @return CSS string of this node.
 	 */
-	toString(stringifier?: Stringifier | Syntax): string;
+	toString(stringifier? : Stringifier | Syntax) : string;
 
 	/**
 	 * Assigns properties to the current node.
@@ -279,7 +300,7 @@ export default interface Node {
 	 * @param overrides New properties to override the node.
 	 * @return Current node to methods chain.
 	 */
-	assign(overrides: object): this;
+	assign(overrides : object) : this;
 
 	/**
 	 * Returns an exact clone of the node.
@@ -297,7 +318,7 @@ export default interface Node {
 	 * @param overrides New properties to override in the clone.
 	 * @return Clone of the node.
 	 */
-	clone(overrides?: object): this;
+	clone(overrides? : object) : this;
 
 	/**
 	 * Shortcut to clone the node and insert the resulting cloned node
@@ -311,7 +332,7 @@ export default interface Node {
 	 *
 	 * @return New node
 	 */
-	cloneBefore(overrides?: object): this;
+	cloneBefore(overrides? : object) : this;
 
 	/**
 	 * Shortcut to clone the node and insert the resulting cloned node
@@ -320,7 +341,7 @@ export default interface Node {
 	 * @param overrides New properties to override in the clone.
 	 * @return New node.
 	 */
-	cloneAfter(overrides?: object): this;
+	cloneAfter(overrides? : object) : this;
 
 	/**
 	 * Inserts node(s) before the current node and removes the current node.
@@ -337,8 +358,8 @@ export default interface Node {
 	 * @return Current node to methods chain.
 	 */
 	replaceWith(
-		...nodes: (ChildNode | ChildProps | ChildNode[] | ChildProps[])[]
-	): this;
+		...nodes : (ChildNode | ChildProps | ChildNode[] | ChildProps[])[]
+	) : this;
 
 	/**
 	 * Returns the next child of the node’s parent.
@@ -355,7 +376,7 @@ export default interface Node {
 	 *
 	 * @return Next node.
 	 */
-	next(): ChildNode | undefined;
+	next() : ChildNode | undefined;
 
 	/**
 	 * Returns the previous child of the node’s parent.
@@ -370,7 +391,7 @@ export default interface Node {
 	 *
 	 * @return Previous node.
 	 */
-	prev(): ChildNode | undefined;
+	prev() : ChildNode | undefined;
 
 	/**
 	 * Insert new node before current node to current node’s parent.
@@ -384,7 +405,7 @@ export default interface Node {
 	 * @param newNode New node.
 	 * @return This node for methods chain.
 	 */
-	before(newNode: Node | ChildProps | string | Node[]): this;
+	before(newNode : Node | ChildProps | string | Node[]) : this;
 
 	/**
 	 * Insert new node after current node to current node’s parent.
@@ -398,7 +419,7 @@ export default interface Node {
 	 * @param newNode New node.
 	 * @return This node for methods chain.
 	 */
-	after(newNode: Node | ChildProps | string | Node[]): this;
+	after(newNode : Node | ChildProps | string | Node[]) : this;
 
 	/**
 	 * Finds the Root instance of the node’s tree.
@@ -409,7 +430,7 @@ export default interface Node {
 	 *
 	 * @return Root parent.
 	 */
-	root(): Root;
+	root() : Root;
 
 	/**
 	 * Returns a `Node#raws` value. If the node is missing
@@ -429,7 +450,7 @@ export default interface Node {
 	 *                    if the value is the same as prop.
 	 * @return {string} Code style value.
 	 */
-	raw(prop: string, defaultType?: string): string;
+	raw(prop : string, defaultType? : string) : string;
 
 	/**
 	 * Clear the code style properties for the node and its children.
@@ -442,14 +463,14 @@ export default interface Node {
 	 *
 	 * @param keepBetween Keep the `raws.between` symbols.
 	 */
-	cleanRaws(keepBetween?: boolean): void;
+	cleanRaws(keepBetween? : boolean) : void;
 
 	/**
 	 * Fix circular links on `JSON.stringify()`.
 	 *
 	 * @return Cleaned object.
 	 */
-	toJSON(): object;
+	toJSON() : object;
 
 	/**
 	 * Convert string index to line/column.
@@ -457,7 +478,7 @@ export default interface Node {
 	 * @param index The symbol number in the node’s string.
 	 * @return Symbol position in file.
 	 */
-	positionInside(index: number): Position;
+	positionInside(index : number) : Position;
 
 	/**
 	 * Get the position for a word or an index inside the node.
@@ -465,7 +486,7 @@ export default interface Node {
 	 * @param opts Options.
 	 * @return Position.
 	 */
-	positionBy(opts?: Pick<WarningOptions, 'word' | 'index'>): Position;
+	positionBy(opts? : Pick<WarningOptions, 'word' | 'index'>) : Position;
 
 	/**
 	 * Get the range for a word or start and end index inside the node.
@@ -474,5 +495,5 @@ export default interface Node {
 	 * @param opts Options.
 	 * @return Range.
 	 */
-	rangeBy(opts?: Pick<WarningOptions, 'word' | 'index' | 'endIndex'>): Range;
+	rangeBy(opts? : Pick<WarningOptions, 'word' | 'index' | 'endIndex'>) : Range;
 }

@@ -4,21 +4,30 @@ import Comment from '../../comment.js';
 import AtRule from '../../at-rule.js';
 import Rule from '../../rule.js';
 
+
+
+
 interface ValueOptions {
 	/**
 	 * An array of property names.
 	 */
-	props?: string[];
+	props? : string[];
 
 	/**
 	 * String that’s used to narrow down values and speed up the regexp search.
 	 */
-	fast?: string;
+	fast? : string;
 }
 
+
+
+
 export interface ContainerProps extends NodeProps {
-	nodes?: (ChildNode | ChildProps)[];
+	nodes? : (ChildNode | ChildProps)[];
 }
+
+
+
 
 /**
  * The `Root`, `AtRule`, and `Rule` container nodes
@@ -38,7 +47,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * root.nodes[0].nodes[0].prop //=> 'color'
 	 * ```
 	 */
-	nodes: Child[];
+	nodes : Child[];
 
 	/**
 	 * The container’s first child.
@@ -47,7 +56,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * rule.first === rules.nodes[0]
 	 * ```
 	 */
-	get first(): Child | undefined;
+	get first() : Child | undefined;
 
 	/**
 	 * The container’s last child.
@@ -56,7 +65,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * rule.last === rule.nodes[rule.nodes.length - 1]
 	 * ```
 	 */
-	get last(): Child | undefined;
+	get last() : Child | undefined;
 
 	/**
 	 * Iterates through the container’s immediate children,
@@ -92,8 +101,8 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return Returns `false` if iteration was broke.
 	 */
 	each(
-		callback: (node: Child, index: number) => false | void,
-	): false | undefined;
+		callback : (node : Child, index : number) => false | void
+	) : false | undefined;
 
 	/**
 	 * Traverses the container’s descendant nodes, calling callback
@@ -115,8 +124,8 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return  Returns `false` if iteration was broke.
 	 */
 	walk(
-		callback: (node: ChildNode, index: number) => false | void,
-	): false | undefined;
+		callback : (node : ChildNode, index : number) => false | void
+	) : false | undefined;
 
 	/**
 	 * Traverses the container’s descendant nodes, calling callback
@@ -148,12 +157,12 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return Returns `false` if iteration was broke.
 	 */
 	walkDecls(
-		propFilter: string | RegExp,
-		callback: (decl: Declaration, index: number) => false | void,
-	): false | undefined;
+		propFilter : string | RegExp,
+		callback : (decl : Declaration, index : number) => false | void
+	) : false | undefined;
 	walkDecls(
-		callback: (decl: Declaration, index: number) => false | void,
-	): false | undefined;
+		callback : (decl : Declaration, index : number) => false | void
+	) : false | undefined;
 
 	/**
 	 * Traverses the container’s descendant nodes, calling callback
@@ -178,12 +187,12 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return Returns `false` if iteration was broke.
 	 */
 	walkRules(
-		selectorFilter: string | RegExp,
-		callback: (rule: Rule, index: number) => false | void,
-	): false | undefined;
+		selectorFilter : string | RegExp,
+		callback : (rule : Rule, index : number) => false | void
+	) : false | undefined;
 	walkRules(
-		callback: (rule: Rule, index: number) => false | void,
-	): false | undefined;
+		callback : (rule : Rule, index : number) => false | void
+	) : false | undefined;
 
 	/**
 	 * Traverses the container’s descendant nodes, calling callback
@@ -215,12 +224,12 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return Returns `false` if iteration was broke.
 	 */
 	walkAtRules(
-		nameFilter: string | RegExp,
-		callback: (atRule: AtRule, index: number) => false | void,
-	): false | undefined;
+		nameFilter : string | RegExp,
+		callback : (atRule : AtRule, index : number) => false | void
+	) : false | undefined;
 	walkAtRules(
-		callback: (atRule: AtRule, index: number) => false | void,
-	): false | undefined;
+		callback : (atRule : AtRule, index : number) => false | void
+	) : false | undefined;
 
 	/**
 	 * Traverses the container’s descendant nodes, calling callback
@@ -240,11 +249,11 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 */
 
 	walkComments(
-		callback: (comment: Comment, indexed: number) => false | void,
-	): false | undefined;
+		callback : (comment : Comment, indexed : number) => false | void
+	) : false | undefined;
 	walkComments(
-		callback: (comment: Comment, indexed: number) => false | void,
-	): false | undefined;
+		callback : (comment : Comment, indexed : number) => false | void
+	) : false | undefined;
 
 	/**
 	 * Inserts new nodes to the end of the container.
@@ -267,8 +276,8 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return This node for methods chain.
 	 */
 	append(
-		...nodes: (Node | Node[] | ChildProps | ChildProps[] | string | string[])[]
-	): this;
+		...nodes : (Node | Node[] | ChildProps | ChildProps[] | string | string[])[]
+	) : this;
 
 	/**
 	 * Inserts new nodes to the start of the container.
@@ -291,8 +300,8 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return This node for methods chain.
 	 */
 	prepend(
-		...nodes: (Node | Node[] | ChildProps | ChildProps[] | string | string[])[]
-	): this;
+		...nodes : (Node | Node[] | ChildProps | ChildProps[] | string | string[])[]
+	) : this;
 
 	/**
 	 * Add child to the end of the node.
@@ -304,7 +313,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @param child New node.
 	 * @return This node for methods chain.
 	 */
-	push(child: Child): this;
+	push(child : Child) : this;
 
 	/**
 	 * Insert new node before old node within the container.
@@ -318,9 +327,9 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return This node for methods chain.
 	 */
 	insertBefore(
-		oldNode: Child | number,
-		newNode: Child | ChildProps | string | Child[] | ChildProps[] | string[],
-	): this;
+		oldNode : Child | number,
+		newNode : Child | ChildProps | string | Child[] | ChildProps[] | string[]
+	) : this;
 
 	/**
 	 * Insert new node after old node within the container.
@@ -330,9 +339,9 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return This node for methods chain.
 	 */
 	insertAfter(
-		oldNode: Child | number,
-		newNode: Child | ChildProps | string | Child[] | ChildProps[] | string[],
-	): this;
+		oldNode : Child | number,
+		newNode : Child | ChildProps | string | Child[] | ChildProps[] | string[]
+	) : this;
 
 	/**
 	 * Removes node from the container and cleans the parent properties
@@ -348,7 +357,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @param child Child or child’s index.
 	 * @return This node for methods chain.
 	 */
-	removeChild(child: Child | number): this;
+	removeChild(child : Child | number) : this;
 
 	/**
 	 * Removes all children from the container
@@ -361,7 +370,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 *
 	 * @return This node for methods chain.
 	 */
-	removeAll(): this;
+	removeAll() : this;
 
 	/**
 	 * Passes all declaration values within the container that match pattern
@@ -387,14 +396,14 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return This node for methods chain.
 	 */
 	replaceValues(
-		pattern: string | RegExp,
-		options: ValueOptions,
-		replaced: string | { (substring: string, ...args: any[]): string },
-	): this;
+		pattern : string | RegExp,
+		options : ValueOptions,
+		replaced : string | { (substring : string, ...args : any[]) : string }
+	) : this;
 	replaceValues(
-		pattern: string | RegExp,
-		replaced: string | { (substring: string, ...args: any[]): string },
-	): this;
+		pattern : string | RegExp,
+		replaced : string | { (substring : string, ...args : any[]) : string }
+	) : this;
 
 	/**
 	 * Returns `true` if callback returns `true`
@@ -408,8 +417,8 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return Is every child pass condition.
 	 */
 	every(
-		condition: (node: Child, index: number, nodes: Child[]) => boolean,
-	): boolean;
+		condition : (node : Child, index : number, nodes : Child[]) => boolean
+	) : boolean;
 
 	/**
 	 * Returns `true` if callback returns `true` for (at least) one
@@ -423,8 +432,8 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @return Is some child pass condition.
 	 */
 	some(
-		condition: (node: Child, index: number, nodes: Child[]) => boolean,
-	): boolean;
+		condition : (node : Child, index : number, nodes : Child[]) => boolean
+	) : boolean;
 
 	/**
 	 * Returns a `child`’s index within the `Container#nodes` array.
@@ -436,7 +445,11 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule<Child extends Node
 	 * @param child Child of the current container.
 	 * @return Child index.
 	 */
-	index(child: Child | number): number;
+	index(child : Child | number) : number;
 }
+
+
+
+
 export type { InterfaceLanguageStyleSheetNodeAsperandRule };
 export default InterfaceLanguageStyleSheetNodeAsperandRule;

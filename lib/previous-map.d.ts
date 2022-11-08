@@ -1,5 +1,8 @@
-import { SourceMapConsumer } from "./source_map.ts";
-import { ProcessOptions } from "./postcss.js";
+import { SourceMapConsumer } from './source_map.ts';
+import { ProcessOptions } from './postcss.js';
+
+
+
 
 /**
  * Source map information from input CSS.
@@ -14,58 +17,70 @@ import { ProcessOptions } from "./postcss.js";
  * ```
  */
 export default class PreviousMap {
-  /**
-   * Was source map inlined by data-uri to input CSS.
-   */
-  inline: boolean;
+	/**
+	 * Was source map inlined by data-uri to input CSS.
+	 */
+	inline : boolean;
 
-  /**
-   * `sourceMappingURL` content.
-   */
-  annotation?: string;
+	/**
+	 * `sourceMappingURL` content.
+	 */
+	annotation? : string;
 
-  /**
-   * Source map file content.
-   */
-  text?: string;
+	/**
+	 * Source map file content.
+	 */
+	text? : string;
 
-  /**
-   * The directory with source map file, if source map is in separated file.
-   */
-  root?: string;
+	/**
+	 * The directory with source map file, if source map is in separated file.
+	 */
+	root? : string;
 
-  /**
-   * The CSS source identifier. Contains `Input#file` if the user
-   * set the `from` option, or `Input#id` if they did not.
-   */
-  file?: string;
+	/**
+	 * The CSS source identifier. Contains `Input#file` if the user
+	 * set the `from` option, or `Input#id` if they did not.
+	 */
+	file? : string;
 
-  /**
-   * Path to source map file.
-   */
-  mapFile?: string;
+	/**
+	 * Path to source map file.
+	 */
+	mapFile? : string;
 
-  /**
-   * @param css  Input CSS source.
-   * @param opts Process options.
-   */
-  constructor(css: string, opts?: ProcessOptions);
 
-  /**
-   * Create a instance of `SourceMapGenerator` class
-   * from the `source-map` library to work with source map information.
-   *
-   * It is lazy method, so it will create object only on first call
-   * and then it will use cache.
-   *
-   * @return Object with source map information.
-   */
-  consumer(): SourceMapConsumer;
 
-  /**
-   * Does source map contains `sourcesContent` with input source text.
-   *
-   * @return Is `sourcesContent` present.
-   */
-  withContent(): boolean;
+
+
+	/**
+	 * @param css  Input CSS source.
+	 * @param opts Process options.
+	 */
+	constructor(css : string, opts? : ProcessOptions);
+
+
+
+
+
+	/**
+	 * Create a instance of `SourceMapGenerator` class
+	 * from the `source-map` library to work with source map information.
+	 *
+	 * It is lazy method, so it will create object only on first call
+	 * and then it will use cache.
+	 *
+	 * @return Object with source map information.
+	 */
+	consumer() : SourceMapConsumer;
+
+
+
+
+
+	/**
+	 * Does source map contains `sourcesContent` with input source text.
+	 *
+	 * @return Is `sourcesContent` present.
+	 */
+	withContent() : boolean;
 }

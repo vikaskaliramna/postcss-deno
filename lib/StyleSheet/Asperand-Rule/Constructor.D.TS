@@ -1,49 +1,58 @@
 import Container, { ContainerProps } from '../Container/Constructor.D.TS';
 
+
+
+
 interface AtRuleRaws extends Record<string, unknown> {
 	/**
 	 * The space symbols before the node. It also stores `*`
 	 * and `_` symbols before the declaration (IE hack).
 	 */
-	before?: string;
+	before? : string;
 
 	/**
 	 * The space symbols after the last child of the node to the end of the node.
 	 */
-	after?: string;
+	after? : string;
 
 	/**
 	 * The space between the at-rule name and its parameters.
 	 */
-	afterName?: string;
+	afterName? : string;
 
 	/**
 	 * The symbols between the last parameter and `{` for rules.
 	 */
-	between?: string;
+	between? : string;
 
 	/**
 	 * Contains `true` if the last child has an (optional) semicolon.
 	 */
-	semicolon?: boolean;
+	semicolon? : boolean;
 
 	/**
 	 * The rule’s selector with comments.
 	 */
-	params?: {
-		value: string;
-		raw: string;
+	params? : {
+		value : string;
+		raw : string;
 	};
 }
 
+
+
+
 export interface AtRuleProps extends ContainerProps {
 	/** Name of the at-rule. */
-	name: string;
+	name : string;
 	/** Parameters following the name of the at-rule. */
-	params?: string | number;
+	params? : string | number;
 	/** Information used to generate byte-to-byte equal node string as it was in the origin input. */
-	raws?: AtRuleRaws;
+	raws? : AtRuleRaws;
 }
+
+
+
 
 /**
  * Represents an at-rule.
@@ -71,9 +80,9 @@ export interface AtRuleProps extends ContainerProps {
  * ```
  */
 declare interface InterfaceLanguageStyleSheetNodeAsperandRule extends Container {
-	type: 'atrule';
-	parent: Container | undefined;
-	raws: AtRuleRaws;
+	type : 'atrule';
+	parent : Container | undefined;
+	raws : AtRuleRaws;
 
 	/**
 	 * The at-rule’s name immediately follows the `@`.
@@ -84,7 +93,7 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule extends Container 
 	 * const media = root.first
 	 * ```
 	 */
-	name: string;
+	name : string;
 
 	/**
 	 * The at-rule’s parameters, the values that follow the at-rule’s name
@@ -96,14 +105,17 @@ declare interface InterfaceLanguageStyleSheetNodeAsperandRule extends Container 
 	 * media.params //=> 'print, screen'
 	 * ```
 	 */
-	params: string;
+	params : string;
 
 	// constructor(defaults?: AtRuleProps);
-	assign(overrides: AtRuleProps): this;
-	clone(overrides?: Partial<AtRuleProps>): this;
-	cloneBefore(overrides?: Partial<AtRuleProps>): this;
-	cloneAfter(overrides?: Partial<AtRuleProps>): this;
+	assign(overrides : AtRuleProps) : this;
+	clone(overrides? : Partial<AtRuleProps>) : this;
+	cloneBefore(overrides? : Partial<AtRuleProps>) : this;
+	cloneAfter(overrides? : Partial<AtRuleProps>) : this;
 }
+
+
+
 
 export type { InterfaceLanguageStyleSheetNodeAsperandRule };
 export default InterfaceLanguageStyleSheetNodeAsperandRule;

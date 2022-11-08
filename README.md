@@ -1,23 +1,24 @@
 # PostCSS [![Gitter][chat-img]][chat]
 
 <img align="right" width="95" height="95"
-     alt="Philosopher’s stone, logo of PostCSS"
-     src="https://postcss.org/logo.svg">
+alt="Philosopher’s stone, logo of PostCSS"
+src="https://postcss.org/logo.svg">
 
 [chat-img]: https://img.shields.io/badge/Gitter-Join_the_PostCSS_chat-brightgreen.svg
+
 [chat]: https://gitter.im/postcss/postcss
 
 PostCSS is a tool for transforming styles with JS plugins. These plugins can
-lint your CSS, support variables and mixins, transpile future CSS syntax,
-inline images, and more.
+lint your CSS, support variables and mixins, transpile future CSS syntax,
+inline images, and more.
 
 PostCSS is used by industry leaders including Wikipedia, Twitter, Alibaba, and
-JetBrains. The [Autoprefixer] PostCSS plugin is one of the most popular CSS
+JetBrains. The[Autoprefixer]PostCSS plugin is one of the most popular CSS
 processors.
 
 PostCSS takes a CSS file and provides an API to analyze and modify its rules
-(by transforming them into an [Abstract Syntax Tree]). This API can then be used
-by [plugins] to do a lot of useful things, e.g., to find errors automatically,
+(by transforming them into an[Abstract Syntax Tree]). This API can then be used
+by [plugins] to do a lot of useful things, e.g., to find errors automatically,
 or to insert vendor prefixes.
 
 **Support / Discussion:** [Gitter](https://gitter.im/postcss/postcss)<br>
@@ -26,12 +27,15 @@ page:** [postcss](https://vk.com/postcss)<br> **中文翻译**:
 [`docs/README-cn.md`](./docs/README-cn.md)
 
 For PostCSS commercial support (consulting, improving the front-end culture of
-your company, PostCSS plugins), contact [Evil Martians] at
+your company, PostCSS plugins), contact[Evil Martians] at
 <postcss@evilmartians.com>.
 
 [Abstract Syntax Tree]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
+
 [Evil Martians]: https://evilmartians.com/?utm_source=postcss
+
 [Autoprefixer]: https://github.com/postcss/autoprefixer
+
 [plugins]: https://github.com/postcss/postcss#plugins
 
 <a href="https://evilmartians.com/?utm_source=postcss">
@@ -54,7 +58,7 @@ PostCSS needs your support. We are accepting donations
 
 ## Plugins
 
-Currently, PostCSS has more than 200 plugins. You can find all of the plugins in
+Currently, PostCSS has more than 200 plugins. You can find all of the plugins in
 the [plugins list] or in the [searchable catalog]. Below is a list of our
 favorite plugins — the best demonstrations of what can be built on top of
 PostCSS.
@@ -62,6 +66,7 @@ PostCSS.
 If you have any new ideas, [PostCSS plugin development] is really easy.
 
 [searchable catalog]: https://www.postcss.parts/
+
 [plugins list]: https://github.com/postcss/postcss/blob/main/docs/plugins.md
 
 ### Solve Global CSS Problem
@@ -114,38 +119,65 @@ If you have any new ideas, [PostCSS plugin development] is really easy.
 - [`rtlcss`] mirrors styles for right-to-left locales.
 
 [PostCSS plugin development]: https://github.com/postcss/postcss/blob/main/docs/writing-a-plugin.md
+
 [`postcss-inline-svg`]: https://github.com/TrySound/postcss-inline-svg
+
 [`postcss-preset-env`]: https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
+
 [`react-css-modules`]: https://github.com/gajus/react-css-modules
+
 [`postcss-autoreset`]: https://github.com/maximkoretskiy/postcss-autoreset
+
 [`postcss-write-svg`]: https://github.com/jonathantneal/postcss-write-svg
+
 [`postcss-utilities`]: https://github.com/ismamz/postcss-utilities
+
 [`postcss-initial`]: https://github.com/maximkoretskiy/postcss-initial
+
 [`postcss-sprites`]: https://github.com/2createStudio/postcss-sprites
+
 [`postcss-modules`]: https://github.com/outpunk/postcss-modules
+
 [`postcss-sorting`]: https://github.com/hudochenkov/postcss-sorting
+
 [`font-magician`]: https://github.com/jonathantneal/postcss-font-magician
+
 [`autoprefixer`]: https://github.com/postcss/autoprefixer
+
 [`cq-prolyfill`]: https://github.com/ausi/cq-prolyfill
+
 [`postcss-url`]: https://github.com/postcss/postcss-url
+
 [`postcss-use`]: https://github.com/postcss/postcss-use
+
 [`css-modules`]: https://github.com/css-modules/css-modules
+
 [`webp-in-css`]: https://github.com/ai/webp-in-css
+
 [`avif-in-css`]: https://github.com/nucliweb/avif-in-css
+
 [`colorguard`]: https://github.com/SlexAxton/css-colorguard
+
 [`stylelint`]: https://github.com/stylelint/stylelint
+
 [`stylefmt`]: https://github.com/morishitter/stylefmt
+
 [`cssnano`]: https://cssnano.co/
+
 [`postcss-nested`]: https://github.com/postcss/postcss-nested
+
 [`doiuse`]: https://github.com/anandthakker/doiuse
+
 [`rtlcss`]: https://github.com/MohammadYounes/rtlcss
+
 [`short`]: https://github.com/jonathantneal/postcss-short
+
 [`lost`]: https://github.com/peterramsing/lost
 
 ## Syntaxes
 
 PostCSS can transform styles in any syntax, not just CSS. If there is not yet
-support for your favorite syntax, you can write a parser and/or stringifier to
+support for your favorite syntax, you can write a parser and/or stringifier to
 extend PostCSS.
 
 - [`sugarss`] is a indent-based syntax like Sass or Stylus.
@@ -168,17 +200,29 @@ extend PostCSS.
 - [`midas`] converts a CSS string to highlighted HTML.
 
 [`postcss-less-engine`]: https://github.com/Crunch/postcss-less
+
 [`postcss-safe-parser`]: https://github.com/postcss/postcss-safe-parser
+
 [`postcss-syntax`]: https://github.com/gucong3000/postcss-syntax
+
 [`postcss-html`]: https://github.com/gucong3000/postcss-html
+
 [`postcss-markdown`]: https://github.com/gucong3000/postcss-markdown
+
 [`postcss-jsx`]: https://github.com/gucong3000/postcss-jsx
+
 [`postcss-styled`]: https://github.com/gucong3000/postcss-styled
+
 [`postcss-scss`]: https://github.com/postcss/postcss-scss
+
 [`postcss-sass`]: https://github.com/AleshaOleg/postcss-sass
+
 [`postcss-less`]: https://github.com/webschik/postcss-less
+
 [`postcss-js`]: https://github.com/postcss/postcss-js
+
 [`sugarss`]: https://github.com/postcss/sugarss
+
 [`midas`]: https://github.com/ben-eb/midas
 
 ## Articles
@@ -325,6 +369,7 @@ gulp.task("css", () => {
 ```
 
 [`gulp-sourcemaps`]: https://github.com/floridoo/gulp-sourcemaps
+
 [`gulp-postcss`]: https://github.com/postcss/gulp-postcss
 
 ### npm Scripts
@@ -345,7 +390,7 @@ like CodePen), just use [Browserify] or [webpack]. They will pack PostCSS and
 plugins files into a single file.
 
 To apply PostCSS plugins to React Inline Styles, JSS, Radium and other
-[CSS-in-JS], you can use [`postcss-js`] and transforms style objects.
+[CSS-in-JS], you can use [`postcss-js`] and transforms style objects.
 
 ```js
 const postcss = require("postcss-js");
@@ -355,8 +400,11 @@ prefixer({ display: "flex" }); //=> { display: ['-webkit-box', '-webkit-flex', '
 ```
 
 [`postcss-js`]: https://github.com/postcss/postcss-js
+
 [Browserify]: http://browserify.org/
+
 [CSS-in-JS]: https://github.com/MicheleBertoli/css-in-js
+
 [webpack]: https://webpack.github.io/
 
 ### Runners
@@ -407,6 +455,7 @@ Read the [PostCSS API documentation] for more details about the JS API.
 All PostCSS runners should pass [PostCSS Runner Guidelines].
 
 [PostCSS Runner Guidelines]: https://github.com/postcss/postcss/blob/main/docs/guidelines/runner.md
+
 [PostCSS API documentation]: https://postcss.org/api/
 
 ### Options
@@ -426,7 +475,9 @@ Common options:
 - `to`: the output file name (most runners set it automatically).
 
 [source map options]: https://postcss.org/api/#sourcemapoptions
+
 [Midas]: https://github.com/ben-eb/midas
+
 [SCSS]: https://github.com/postcss/postcss-scss
 
 ### Treat Warnings as Errors
@@ -466,7 +517,9 @@ module.exports = {
 - [`Syntax-highlighting-for-PostCSS`] adds PostCSS highlight.
 
 [`Syntax-highlighting-for-PostCSS`]: https://github.com/hudochenkov/Syntax-highlighting-for-PostCSS
+
 [`source-preview-postcss`]: https://atom.io/packages/source-preview-postcss
+
 [`language-postcss`]: https://atom.io/packages/language-postcss
 
 ### Vim

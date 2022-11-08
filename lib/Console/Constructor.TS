@@ -55,7 +55,7 @@ class LanguageConsoleConstructor {
 
 			let token = CustomContentScanner.nextToken();
 
-			let color = HIGHLIGHT_THEME[ this.#FunctionCheckType(token, CustomContentScanner) ];
+			let color = HIGHLIGHT_THEME[ this.FunctionCheckType(token, CustomContentScanner) ];
 
 			if (color) {
 				FunctionStringResult += token[ 1 ]
@@ -77,7 +77,7 @@ class LanguageConsoleConstructor {
 
 
 
-	#FunctionCheckType([ type, value ] : string[], processor : tokenizer) {
+	private static FunctionCheckType([ type, value ] : string[], processor : typeof tokenizer) {
 
 		if (type === 'word') {
 			if (value[ 0 ] === '.') {
